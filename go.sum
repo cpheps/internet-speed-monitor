@@ -1,0 +1,4 @@
+github.com/cenkalti/backoff v2.1.1+incompatible h1:tKJnvO2kl0zmb/jA5UKAt4VoEVw1qxKWjE/Bpp46npY=
+github.com/cenkalti/backoff v2.1.1+incompatible/go.mod h1:90ReRw6GdpyfrHakVjL/QHaoyV4aDUVVkXQJJJ3NXXM=
+gopkg.in/zorkian/go-datadog-api.v2 v2.19.0 h1:/IyYpxEg4RkP+HmefdWSoTMgmVuwArhqSmmdUgfGrWQ=
+gopkg.in/zorkian/go-datadog-api.v2 v2.19.0/go.mod h1:kx0CSMRpzEZfx/nFH62GLU4stZjparh/BRpM89t4XCQ=
