@@ -59,9 +59,9 @@ func (c *Client) SubmitTestResults(results *speedtest.Results) error {
 	values := &sheets.ValueRange{
 		Values: [][]interface{}{
 			{
-				results.Timstamp,
-				results.Download,
-				results.Upload,
+				results.TimestampEST(),
+				results.DownloadMbps(),
+				results.UploadMbps(),
 				results.Ping,
 			},
 		},
