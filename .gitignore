@@ -6,6 +6,7 @@
 main
 *.zip
 limelight-exercise
+speedRun
 
 # Test binary, build with `go test -c`
 *.test
@@ -15,3 +16,5 @@ vendor/
 
 #Project Folders
 bin
+token.json
+credentials.json
