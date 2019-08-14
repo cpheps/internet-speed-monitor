@@ -16,13 +16,15 @@ import (
 
 const (
 	credentialEnv = "SHEETS_CRED"
-	sheetEnv      = "SHEETS_ID"
+	sheetsIDEnv   = "SHEETS_ID"
+	sheetNameEnv  = "SHEET_NAME"
 )
 
 // Client connection to google sheets
 type Client struct {
-	client  *sheets.Service
-	sheetID string
+	client    *sheets.Service
+	sheetID   string
+	sheetName string
 }
 
 // NewClient creates a new sheets.Client base on credential file. Looks for file in SHEETS_CRED env
@@ -48,9 +50,15 @@ func NewClient() (*Client, error) {
 		return nil, err
 	}
 
+	sheetName, err := getSheetName()
+	if err != nil {
+		return nil, err
+	}
+
 	return &Client{
-		client:  srv,
-		sheetID: *sheetID,
+		client:    srv,
+		sheetID:   *sheetID,
+		sheetName: *sheetName,
 	}, nil
 }
 
@@ -66,7 +74,7 @@ func (c *Client) SubmitTestResults(results *speedtest.Results) error {
 			},
 		},
 	}
-	_, err := c.client.Spreadsheets.Values.Append(c.sheetID, "Sheet1", values).
+	_, err := c.client.Spreadsheets.Values.Append(c.sheetID, c.sheetName, values).
 		InsertDataOption("INSERT_ROWS").
 		ValueInputOption("RAW").
 		Context(context.Background()).
@@ -85,12 +93,21 @@ func readCredFile() ([]byte, error) {
 }
 
 func getSheetID() (*string, error) {
-	sheetID, ok := os.LookupEnv(sheetEnv)
+	sheetID, ok := os.LookupEnv(sheetsIDEnv)
 	if !ok {
-		return nil, fmt.Errorf("%s was not set", sheetEnv)
+		return nil, fmt.Errorf("%s was not set", sheetsIDEnv)
 	}
 
 	return &sheetID, nil
+}
+
+func getSheetName() (*string, error) {
+	sheetName, ok := os.LookupEnv(sheetNameEnv)
+	if !ok {
+		return nil, fmt.Errorf("%s was not set", sheetNameEnv)
+	}
+
+	return &sheetName, nil
 }
 
 func createOAuthClient(credData []byte) (*http.Client, error) {

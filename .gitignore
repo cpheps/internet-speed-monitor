@@ -5,8 +5,7 @@
 *.dylib
 main
 *.zip
-limelight-exercise
-speedRun
+internet-monitor
 
 # Test binary, build with `go test -c`
 *.test
